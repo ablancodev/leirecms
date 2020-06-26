@@ -72,6 +72,8 @@
                         <div class="sidebar-nav navbar-collapse">
                             <ul class="nav" id="side-menu">
                                 <li><a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
+                                <!-- Menu customers -->
+                                <!--
                                 <li<?php echo (CURRENT_PAGE == 'customers.php' || CURRENT_PAGE == 'add_customer.php') ? ' class="active"' : ''; ?>>
                                     <a href="#"><i class="fa fa-user-circle fa-fw"></i> Customers<i class="fa arrow"></i></a>
                                     <ul class="nav nav-second-level">
@@ -79,6 +81,17 @@
                                         <li><a href="add_customer.php"><i class="fa fa-plus fa-fw"></i> Add New</a></li>
                                     </ul>
                                 </li>
+                                -->
+                                
+                                <!-- Menu page -->
+                                <li<?php echo (CURRENT_PAGE == 'pages.php' || CURRENT_PAGE == 'add_page.php') ? ' class="active"' : ''; ?>>
+                                    <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Pages<i class="fa arrow"></i></a>
+                                    <ul class="nav nav-second-level">
+                                        <li><a href="pages.php"><i class="fa fa-list fa-fw"></i> List all</a></li>
+                                        <li><a href="add_page.php"><i class="fa fa-plus fa-fw"></i> Add New</a></li>
+                                    </ul>
+                                </li>
+                                
                                 <li><a href="admin_users.php"><i class="fa fa-users fa-fw"></i> Users</a></li>
                             </ul>
                         </div>

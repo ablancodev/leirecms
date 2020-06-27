@@ -2,23 +2,44 @@
 session_start();
 require_once 'includes/auth_validate.php';
 require_once './config/config.php';
-$del_id = filter_input(INPUT_POST, 'del_id');
- $db = getDbInstance();
 
-if($_SESSION['admin_type']!='super'){
-    header('HTTP/1.1 401 Unauthorized', true, 401);
-    exit("401 Unauthorized");
-}
+$page_id = filter_input(INPUT_POST, 'page_id');
+$page_id = intval($_GET['page_id']);
+$db = getDbInstance();
 
 
 // Delete a user using user_id
-if ($del_id && $_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($page_id) {
     
-    $db->where('id', $del_id);
-    $stat = $db->delete('admin_accounts');
-    if ($stat) {
-        $_SESSION['info'] = "User deleted successfully!";
-        header('location: admin_users.php');
+    $db->where('id', $page_id);
+    $page = $db->getOne('pages');
+
+    if ( !$page ) {
+        header('location: pages.php');
         exit;
     }
+
+     // Parser
+     try {
+        $template = file_get_contents( './templates/page.html' );
+    
+        if ($template === false) {
+            // Handle the error
+            echo "error";
+            exit;
+        }
+
+        $template = str_replace( '{{title}}', $page['title'], $template );
+        $template = str_replace( '{{content}}', $page['content'], $template) ;
+        
+        file_put_contents( './outputs/' . $page['slug'] . '.html', $template );
+
+    } catch (Exception $e) {
+        // Handle exception
+        echo "vaya errror";
+    }
+
+
+} else {
+    echo "Necesita indicar el id de página.";
 }

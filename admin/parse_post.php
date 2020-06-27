@@ -19,13 +19,17 @@ if ($post_id) {
         exit;
     }
 
+    // Settings
+    $db->where ('name', 'posts_template');
+    $posts_template = $db->getOne('settings');
+
      // Parser
      try {
-        $template = file_get_contents( './templates/post.html' );
+        $template = file_get_contents( './templates/' . $posts_template['value'] );
     
         if ($template === false) {
             // Handle the error
-            echo "No se ha podido cargar la plantilla.";
+            echo "No se ha podido cargar la plantilla: /templates/" . $posts_template['value'];
             exit;
         }
 

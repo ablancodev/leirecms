@@ -12,13 +12,13 @@ $order_by	= filter_input(INPUT_GET, 'order_by');
 $order_dir	= filter_input(INPUT_GET, 'order_dir');
 $search_str	= filter_input(INPUT_GET, 'search_str');
 
-// Per page limit for pagination
-$pagelimit = 15;
+// Per post limit for pagination
+$postlimit = 15;
 
-// Get current page
-$page = filter_input(INPUT_GET, 'page');
-if (!$page) {
-	$page = 1;
+// Get current post
+$post = filter_input(INPUT_GET, 'post');
+if (!$post) {
+	$post = 1;
 }
 
 // If filter types are not selected we show latest added data first
@@ -44,22 +44,22 @@ if ($order_dir) {
 }
 
 // Set pagination limit
-$db->pageLimit = $pagelimit;
+$db->postLimit = $postlimit;
 
 // Get result of the query
-$rows = $db->arraybuilder()->paginate('pages', $page, $select);
-$total_pages = $db->totalPages;
+$rows = $db->arraybuilder()->paginate('posts', $post, $select);
+$total_posts = $db->totalPages;
 ?>
 <?php include BASE_PATH . '/includes/header.php'; ?>
 <!-- Main container -->
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-6">
-            <h1 class="page-header">Pages</h1>
+            <h1 class="page-header">Posts</h1>
         </div>
         <div class="col-lg-6">
             <div class="page-action-links text-right">
-                <a href="add_page.php?operation=create" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add new</a>
+                <a href="add_post.php?operation=create" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i> Add new</a>
             </div>
         </div>
     </div>
@@ -113,15 +113,15 @@ if ($order_dir == 'Desc') {
                 <td><?php echo htmlspecialchars($row['title']); ?></td>
                 <td><?php echo htmlspecialchars($row['updated_at']); ?></td>
                 <td>
-                    <a href="edit_page.php?page_id=<?php echo $row['id']; ?>&operation=edit" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
+                    <a href="edit_post.php?post_id=<?php echo $row['id']; ?>&operation=edit" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i></a>
                     <a href="#" class="btn btn-danger delete_btn" data-toggle="modal" data-target="#confirm-delete-<?php echo $row['id']; ?>"><i class="glyphicon glyphicon-trash"></i></a>
-                    <a href="parse_page.php?page_id=<?php echo $row['id']; ?>&operation=parse" class="btn btn-info"><i class="glyphicon glyphicon-play"></i></a>
+                    <a href="parse_post.php?post_id=<?php echo $row['id']; ?>&operation=parse" class="btn btn-info"><i class="glyphicon glyphicon-play"></i></a>
                 </td>
             </tr>
             <!-- Delete Confirmation Modal -->
             <div class="modal fade" id="confirm-delete-<?php echo $row['id']; ?>" role="dialog">
                 <div class="modal-dialog">
-                    <form action="delete_page.php" method="POST">
+                    <form action="delete_post.php" method="POST">
                         <!-- Modal content -->
                         <div class="modal-content">
                             <div class="modal-header">
@@ -148,7 +148,7 @@ if ($order_dir == 'Desc') {
 
     <!-- Pagination -->
     <div class="text-center">
-    	<?php echo paginationLinks($page, $total_pages, 'pages.php'); ?>
+    	<?php echo paginationLinks($post, $total_posts, 'posts.php'); ?>
     </div>
     <!-- //Pagination -->
 </div>

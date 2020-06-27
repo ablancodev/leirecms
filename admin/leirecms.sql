@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `customers`
 --
 
-CREATE TABLE `pages` (
+CREATE TABLE `posts` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `author_id` int(20) NOT NULL,
   `title` text DEFAULT NULL,

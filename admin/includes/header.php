@@ -84,11 +84,11 @@
                                 -->
                                 
                                 <!-- Menu page -->
-                                <li<?php echo (CURRENT_PAGE == 'pages.php' || CURRENT_PAGE == 'add_page.php') ? ' class="active"' : ''; ?>>
-                                    <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Pages<i class="fa arrow"></i></a>
+                                <li<?php echo (CURRENT_PAGE == 'posts.php' || CURRENT_PAGE == 'add_post.php') ? ' class="active"' : ''; ?>>
+                                    <a href="#"><i class="fa fa-pencil-square-o fa-fw"></i> Posts<i class="fa arrow"></i></a>
                                     <ul class="nav nav-second-level">
-                                        <li><a href="pages.php"><i class="fa fa-list fa-fw"></i> List all</a></li>
-                                        <li><a href="add_page.php"><i class="fa fa-plus fa-fw"></i> Add New</a></li>
+                                        <li><a href="posts.php"><i class="fa fa-list fa-fw"></i> List all</a></li>
+                                        <li><a href="add_post.php"><i class="fa fa-plus fa-fw"></i> Add New</a></li>
                                     </ul>
                                 </li>
                                 

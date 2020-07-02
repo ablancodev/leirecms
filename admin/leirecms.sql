@@ -47,6 +47,68 @@ CREATE TABLE `settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 
+
+--
+-- Estructura de tabla para la tabla `acf`
+--
+
+CREATE TABLE `acf` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `type` varchar(128) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `post_type` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `posts_meta`
+--
+
+CREATE TABLE `posts_meta` (
+  `id` bigint(20) NOT NULL,
+  `post_id` bigint(20) NOT NULL,
+  `name` varchar(256) NOT NULL,
+  `value` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `acf`
+--
+ALTER TABLE `acf`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `posts_meta`
+--
+ALTER TABLE `posts_meta`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_id` (`post_id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `acf`
+--
+ALTER TABLE `acf`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `posts_meta`
+--
+ALTER TABLE `posts_meta`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

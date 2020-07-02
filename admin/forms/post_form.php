@@ -1,3 +1,8 @@
+<?php
+$db->where('post_type', 'post');
+$acfs = $db->get('acf');
+
+?>
 <fieldset>
     <div class="form-group">
         <label for="title">Title *</label>
@@ -13,6 +18,39 @@
         <label for="content">Content</label>
           <textarea name="content" placeholder="Content" class="form-control" id="content"><?php echo htmlspecialchars(($edit) ? $post['content'] : '', ENT_QUOTES, 'UTF-8'); ?></textarea>
     </div>
+
+<?php
+    if ( $acfs && is_array($acfs) ) {
+        foreach ( $acfs as $acf ) {
+
+            $db_post_meta = getDbInstance();
+            $db_post_meta->where('post_id', $post_id);
+            $db_post_meta->where('name', $acf['name']);
+            
+            $post_meta = $db_post_meta->getOne('posts_meta');
+
+            echo '
+            <div class="form-group">
+                <label for="content">' . $acf['title'] . '</label>
+            ';
+            switch ($acf['type']) {
+                case 'textarea':
+                    echo '
+                    <textarea name="' . $acf['name'] . '" class="form-control">' . $post_meta['value'] . '</textarea>
+                    ';
+                    break;
+                case 'text':
+                default:
+                    echo '
+                    <input type="text" name="'. $acf['name'] . '" value="' . $post_meta['value'] . '" placeholder="" class="form-control">
+                    ';
+                    break;
+            }
+            echo '</div>';
+
+        }
+    }
+?>
 
     <div class="form-group text-center">
         <label></label>

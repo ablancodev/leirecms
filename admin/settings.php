@@ -21,12 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
             } else {
                 $stat = $db->insert ('settings', array( 'name' => $key, 'value' => $data ));
             }
-            //$stat = $db->update( 'settings', array( 'value' => $data ) );
-/*
-            $lastInsertId = "name";
-            $db->onDuplicate( array( 'value' => $data ), $lastInsertId );
-            $stat = $db->insert ('settings', array( 'name' => $key, 'value' => $data ));
-            */
         }
     }
     
@@ -36,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         $_SESSION['success'] = 'Settings updated successfully!';
         // Redirect to the listing page
         header('Location: settings.php');
-        // Important! Don't execute the rest put the exit/die.
         exit();
     }
 }

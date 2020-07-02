@@ -76,7 +76,7 @@ CREATE TABLE `posts_meta` (
 --
 -- Índices para tablas volcadas
 --
-
+ 
 --
 -- Indices de la tabla `acf`
 --

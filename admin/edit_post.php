@@ -2,6 +2,7 @@
 session_start();
 require_once 'config/config.php';
 require_once BASE_PATH.'/includes/auth_validate.php';
+require_once BASE_PATH . '/helpers/helpers.php';
 
 // Sanitize if you want
 $post_id = filter_input(INPUT_GET, 'post_id', FILTER_VALIDATE_INT);
@@ -41,6 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
             $db->where('name', $key);
             $db->where('post_id', $post_id);
             if ($db->has("posts_meta")) {
+                $db->where('name', $key);
+                $db->where('post_id', $post_id);
                 $stat = $db->update('posts_meta', array('value' => $acf));
             } else {
                 $stat = $db->insert('posts_meta', array('post_id' => $post_id, 'name' => $key, 'value' => $acf));
@@ -48,19 +51,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         }
 
         // Ahora los $_FILES, que no son procesados por filter_input
-        if ( $_FILES && is_array( $_FILES ) ) {
+        if ( $_FILES && (sizeof( $_FILES ) > 0 ) ) {
             $dir_subida = './uploads/';
             foreach ( $_FILES as $key => $file ) {
-                $fichero_subido = $dir_subida . basename($file['name']);
-                $stat = move_uploaded_file($file['tmp_name'], $fichero_subido);
-                if ( $stat ) {
-                    $db = getDbInstance();
-                    $db->where('name', $key);
-                    $db->where('post_id', $post_id);
-                    if ($db->has("posts_meta")) {
-                        $stat = $db->update('posts_meta', array('value' => $fichero_subido));
-                    } else {
-                        $stat = $db->insert('posts_meta', array('post_id' => $post_id, 'name' => $key, 'value' => $fichero_subido));
+                if ( is_uploaded_file($file['tmp_name'])) {
+                    $fichero_subido = $dir_subida . basename($file['name']);
+                    $stat = move_uploaded_file($file['tmp_name'], $fichero_subido);
+                    if ( $stat ) {
+                        $db = getDbInstance();
+                        $db->where('name', $key);
+                        $db->where('post_id', $post_id);
+                        if ($db->has("posts_meta")) {
+                            $db->where('name', $key);
+                            $db->where('post_id', $post_id);
+                            $stat = $db->update('posts_meta', array('value' => get_base_path() . '/uploads/' . basename($file['name'])));
+                        } else {
+                            $stat = $db->insert('posts_meta', array('post_id' => $post_id, 'name' => $key, 'value' => get_base_path() . '/uploads/' . basename($file['name'])));
+                        }
                     }
                 }
             }

@@ -41,7 +41,7 @@ $acfs = $db->get('acf');
                     break;
                 case 'image':
                     echo '
-                    <input type="file" name="' . $acf['name'] . '" src="' . $post_meta['value'] . '" > 
+                    <input type="file" name="' . $acf['name'] . '" > 
                     ';
                     break;
                 case 'text':

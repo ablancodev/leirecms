@@ -39,6 +39,11 @@ $acfs = $db->get('acf');
                     <textarea name="' . $acf['name'] . '" class="form-control">' . $post_meta['value'] . '</textarea>
                     ';
                     break;
+                case 'image':
+                    echo '
+                    <input type="file" name="' . $acf['name'] . '" src="' . $post_meta['value'] . '" > 
+                    ';
+                    break;
                 case 'text':
                 default:
                     echo '
